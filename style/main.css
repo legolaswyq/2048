@@ -1,0 +1,114 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+}
+
+.main_container{
+    background-color: antiquewhite;
+    width: 500px;
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.title{
+    font-size: 4em;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #776e65;
+    width: 50%;
+}
+
+.score{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.current_score, .best_score{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darksalmon;
+    border-radius: 10px;
+    color: white;
+}
+
+.label{
+    font-size: 10pt;
+}
+
+.current_score{
+    width: 33%;
+    height: 60%;
+}
+
+.best_score{
+    width: 66%;
+    height: 60%;
+}
+
+
+.above_game{
+    display: flex;
+    justify-content: space-around;
+    color: #776e65;
+    font-family: sans-serif;
+    font-size: 13pt;
+}
+
+.message{
+    position: relative;
+    top: 10px;
+}
+
+.restart_button{
+    box-sizing: border-box;
+    width: 30%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: #776e65;
+    color: white;
+}
+
+.grid_container{
+    margin-top: 50px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background-color: #bbada0;
+    border-radius: 5px;
+}
+
+.grid_container>div{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.grid_container>div>div{
+    width: 110px;
+    height: 110px;
+    border-radius: 5px;
+    background-color: rgba(238, 228, 218, 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+}
+
+
