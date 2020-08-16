@@ -66,6 +66,9 @@ function movement(keyCode) {
         default:
             break;
     }
+    if (stateChange(previewCells, this.cells)) {
+        this.addRandomTile();
+    }
 
     this.updateScreen();
 }
@@ -76,6 +79,17 @@ function getPreviewCells (cells) {
         previewCells.push(cells[i]);
     }
     return previewCells;
+}
+
+function stateChange(preview, newCells) {
+    let flag = false;
+    for(let i = 0; i < preview.length; i++){
+        if (preview[i] !== newCells[i]) {
+            flag = true;
+            break;
+        }
+    } 
+    return flag;
 }
 
 
@@ -123,5 +137,57 @@ function moveUp (cells) {
         }
     }
 
+    return newCells;
+}
+
+function moveDown(cells) {
+    let down = [], afterMove = [], newCells = [];
+    down = upsideDown(cells);
+    afterMove = moveUp(down);
+    newCells = upsideDown(afterMove);
+    return newCells;
+}
+
+function moveLeft (cells) {
+    let left = turnRight(cells);
+    let afterMove = moveUp(left);
+    let newCells = turnLeft(afterMove);
+    return newCells;
+}
+
+function moveRight (cells) {
+    let right = turnLeft(cells);
+    let afterMove = moveUp(right);
+    let newCells = turnRight(afterMove);
+    return newCells;
+}
+
+function upsideDown (cells) {
+    let newCells = [];
+    for(let i = 12; i >= 0; i -= 4){
+        for(let j = 0; j < 4; j++){
+            newCells.push(cells[i + j]);
+        }
+    }
+    return newCells;
+}
+
+function turnLeft (cells) {
+    let newCells = [];
+    for(let i = 3; i >= 0; i--){
+        for (let j = 0; j <= 12; j += 4){
+            newCells.push(cells[i + j]);
+        }
+    }
+    return newCells;
+}
+
+function turnRight (cells) {
+    let newCells = [];
+    for(let i = 12; i < 16; i++){
+        for (let j = 0; j <= 12; j += 4){
+            newCells.push(cells[i - j]);
+        }
+    }
     return newCells;
 }
