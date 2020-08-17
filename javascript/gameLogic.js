@@ -1,6 +1,7 @@
 function Game(size) {
     this.size = size;
     this.cells = this.emptyCells();
+    this.score = 0;
 }
 
 
@@ -16,6 +17,9 @@ Game.prototype.init = function () {
     this.addRandomTile();
     this.addRandomTile();
     this.updateScreen();
+    setBackground(this.cells);
+    this.score = 0;
+    this.updateScreen();
 }
 
 Game.prototype.updateScreen = function () {
@@ -23,6 +27,8 @@ Game.prototype.updateScreen = function () {
     for (let i = 0; i < grid.length; i++) {
         grid[i].innerHTML = this.cells[i];
     }
+    let score = document.querySelector(".current_score .points");
+    score.innerHTML = this.score;
 }
 
 Game.prototype.emptyCells = function () {
@@ -59,16 +65,16 @@ function movement(keyCode) {
 
     switch (keyCode) {
         case 38:
-            this.cells = moveUp(this.cells);
+            moveUp.call(this);
             break;
         case 40:
-            this.cells = moveDown(this.cells);
+            moveDown.call(this);
             break;
         case 37:
-            this.cells = moveLeft(this.cells);
+            moveLeft.call(this);
             break;
         case 39:
-            this.cells = moveRight(this.cells);
+            moveRight.call(this);
             break;
         default:
             break;
@@ -79,7 +85,6 @@ function movement(keyCode) {
     if (stateChange(previewCells, this.cells)) {
         this.addRandomTile();
     }
-
     this.updateScreen();
     setBackground(this.cells);
 }
@@ -89,7 +94,6 @@ function setBackground(cells) {
     for(let i = 0; i < grid_cells.length; i++){
         grid_cells[i].className = "grid_cell";
     }
-    console.log(grid_cells);
     for (let i = 0; i < cells.length; i++) {
         switch (cells[i]) {
             case 2:
@@ -192,7 +196,7 @@ function stateChange(preview, newCells) {
 }
 
 
-function moveUp(cells) {
+function moveUp() {
     let merge = [], matrix = [];
     let index = 0;
     for (let i = 0; i < 4; i++) {
@@ -200,7 +204,7 @@ function moveUp(cells) {
         let row1 = matrix[i] = [];
         for (let j = 0; j < 4; j++) {
             row.push(true);
-            row1.push(cells[index++]);
+            row1.push(this.cells[index++]);
         }
     }
     for (let i = 1; i < 4; i++) {
@@ -221,6 +225,7 @@ function moveUp(cells) {
                 matrix[k][j] *= 2;
                 merge[k][j] = false;
                 matrix[i][j] = null;
+                this.score += matrix[k][j];
             }
 
             if ((!merge[k][j] || matrix[k][j] !== matrix[i][j]) && matrix[k + 1][j] === null) {
@@ -236,29 +241,25 @@ function moveUp(cells) {
         }
     }
 
-    return newCells;
+    this.cells = newCells;
 }
 
-function moveDown(cells) {
-    let down = [], afterMove = [], newCells = [];
-    down = upsideDown(cells);
-    afterMove = moveUp(down);
-    newCells = upsideDown(afterMove);
-    return newCells;
+function moveDown() {
+    this.cells = upsideDown(this.cells);
+    moveUp.call(this);
+    this.cells = upsideDown(this.cells);
 }
 
 function moveLeft(cells) {
-    let left = turnRight(cells);
-    let afterMove = moveUp(left);
-    let newCells = turnLeft(afterMove);
-    return newCells;
+    this.cells = turnRight(this.cells);
+    moveUp.call(this);
+    this.cells = turnLeft(this.cells);
 }
 
 function moveRight(cells) {
-    let right = turnLeft(cells);
-    let afterMove = moveUp(right);
-    let newCells = turnRight(afterMove);
-    return newCells;
+    this.cells = turnLeft(this.cells);
+    moveUp.call(this);
+    this.cells = turnRight(this.cells);
 }
 
 function upsideDown(cells) {

@@ -115,6 +115,9 @@ body,html{
     cursor: pointer;
 }
 
+.grid_cell{
+    font-family: sans-serif;
+}
 
 .grid_cell.one{
     background-color: #eee4da;
