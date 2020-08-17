@@ -8,7 +8,13 @@ Game.prototype.execute = function () {
     this.addRandomTile();
     this.addRandomTile();
     this.updateScreen();
+}
 
+Game.prototype.init = function () {
+    this.cells = this.emptyCells();
+    this.addRandomTile();
+    this.addRandomTile();
+    this.updateScreen();
 }
 
 Game.prototype.updateScreen = function () {
@@ -66,11 +72,53 @@ function movement(keyCode) {
         default:
             break;
     }
+    if (gameOver(this.cells)) {
+        alert("gameOver");
+    }
     if (stateChange(previewCells, this.cells)) {
         this.addRandomTile();
     }
 
     this.updateScreen();
+}
+
+function gameOver (cells) {
+    let matrix = [];
+    let index = 0;
+    let isGameOver = true;
+
+    //if there is empty cells game continue
+    for(let i = 0; i < cells.length; i++){
+        if (cells[i] === null) {
+            isGameOver = false;
+            return isGameOver;
+        }
+    }
+
+
+    //convent into 2-d matrix
+    for (let i = 0; i < 4; i++){
+        let row = matrix[i] = [];
+        for(let j = 0; j < 4; j++){
+            row.push(cells[index++]);
+        }
+    }
+
+    //check horizontal and vertical if there are two tile is same value
+    for (let i = 0; i < 4; i++){
+        for(let j = 0; j < 4; j++){
+            if (j < 3 && matrix[i][j] === matrix[i][j + 1]) {
+                isGameOver = false;
+                return isGameOver;
+            }
+            if (i < 3 && matrix[i][j] === matrix[i + 1][j]) {
+                isGameOver = false;
+                return isGameOver;
+            }
+        }
+    }
+
+    return isGameOver; 
 }
 
 function getPreviewCells (cells) {

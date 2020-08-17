@@ -111,4 +111,8 @@ body,html{
     font-size: 3em;
 }
 
+.restart_button:hover {
+    cursor: pointer;
+}
+
 
