@@ -116,3 +116,49 @@ body,html{
 }
 
 
+.grid_cell.one{
+    background-color: #eee4da;
+    color: black;
+}
+
+.grid_cell.two{
+    background-color: #ede0c8;
+    color: black;
+}
+.grid_cell.three{
+    color: #f9f6f2;
+    background: #f2b179;
+}
+.grid_cell.four{
+    color: #f9f6f2;
+    background: #f59563;
+}
+.grid_cell.five{
+    color: #f9f6f2;
+    background: #f67c5f;
+}
+.grid_cell.six{
+    color: #f9f6f2;
+    background: #f65e3b;
+}
+.grid_cell.seven{
+    color: #f9f6f2;
+    background: #edcf72;
+}
+.grid_cell.eight{
+    color: #f9f6f2;
+    background: #edcc61;
+}
+.grid_cell.night{
+    color: #f9f6f2;
+    background: #edc850;
+}
+.grid_cell.ten{
+    color: #f9f6f2;
+    background: #edc53f;
+}
+.grid_cell.eleven{
+    color: #f9f6f2;
+    background: #edc22e;
+}
+
