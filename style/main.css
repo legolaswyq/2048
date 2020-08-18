@@ -165,3 +165,21 @@ body,html{
     background: #edc22e;
 }
 
+
+
+.grid_cell.addNewTile {
+    animation: addNewTile 0.2s ease-in;
+}
+
+@keyframes addNewTile{
+    from{
+        transform: scale(0.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.grid_cell.merge {
+    ;
+}

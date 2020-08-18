@@ -13,13 +13,14 @@ Game.prototype.execute = function () {
 }
 
 Game.prototype.init = function () {
+    clearClassName();
     this.cells = this.emptyCells();
     this.addRandomTile();
     this.addRandomTile();
-    this.updateScreen();
-    setBackground(this.cells);
     this.score = 0;
     this.updateScreen();
+    setBackground(this.cells);
+    
 }
 
 Game.prototype.updateScreen = function () {
@@ -30,6 +31,14 @@ Game.prototype.updateScreen = function () {
     let score = document.querySelector(".current_score .points");
     score.innerHTML = this.score;
 }
+
+function clearClassName () {
+    let grid_cells = document.querySelectorAll(".grid_cell");
+    for(let i = 0; i < grid_cells.length; i++){
+        grid_cells[i].className = "grid_cell";
+    }
+}
+
 
 Game.prototype.emptyCells = function () {
     var cells = [];
@@ -58,9 +67,18 @@ Game.prototype.addRandomTile = function () {
     let random = availableCells[index];
     let value = Math.random() > 0.9 ? 4 : 2;
     this.cells[random] = value;
+
+    let grid_cells = document.querySelectorAll(".grid_cell");
+    grid_cells[random].classList.add("addNewTile");
+    
 }
 
 function movement(keyCode) {
+    let grid_cells = document.querySelectorAll(".grid_cell");
+    for(let i = 0; i < grid_cells.length; i++){
+        grid_cells[i].className = "grid_cell";
+    }
+
     let previewCells = getPreviewCells(this.cells);
 
     switch (keyCode) {
@@ -91,9 +109,6 @@ function movement(keyCode) {
 
 function setBackground(cells) {
     let grid_cells = document.querySelectorAll(".grid_cell");
-    for(let i = 0; i < grid_cells.length; i++){
-        grid_cells[i].className = "grid_cell";
-    }
     for (let i = 0; i < cells.length; i++) {
         switch (cells[i]) {
             case 2:
